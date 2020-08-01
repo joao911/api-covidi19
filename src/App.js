@@ -3,7 +3,7 @@ import React from 'react';
 import { Cards, CountryPicker, Chart } from './components';
 import { fetchData } from './api';
 import styles from './styles/App.module.css';
-import Corona from './img/corona.jpeg'
+import Corona from './img/image.png'
 
 
 
@@ -34,6 +34,7 @@ class App extends React.Component {
         <Cards data={data} />
         <CountryPicker handleCoutryChange={this.handleCoutryChange}/>
         <Chart data={data} country={country} /> 
+        <h3>João Paulo Duarte Desenvolvedor Web Fron-End</h3>
       </div>
     );
   }
