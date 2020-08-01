@@ -4,16 +4,15 @@ import {Line, Bar} from 'react-chartjs-2';
 import style from './Chart.module.css'
 
 
-const Chart = () => {
+const Chart = ({data:{confirmed, recovered, deaths}, country}) => {
     const [dailyData, setDailyData]= useState([]);
 
     useEffect(()=>{
         const fetchAPI = async ()=>{
             setDailyData(await fetchDailyData());
         }
-        console.log(dailyData)
         fetchAPI();
-    });
+    },[]);
     const lineChart = (
         dailyData.length!== 0 ? (
             <Line
@@ -21,12 +20,12 @@ const Chart = () => {
                labels:dailyData.map(({date}) => date),
                datasets:[{
                 data: dailyData.map(({confirmed})=> confirmed),
-                label:'Infected',
+                label:'Infecttados',
                 borderColor:'#3333ff',
                 fill:true,
                },{
                 data: dailyData.map(({deaths})=> deaths),
-                label:'Deaths',
+                label:'Mortes',
                 borderColor:'red',
                 backgroundColor: 'rgba(255, 0, 0, 0.5)',
                 fill:true,
@@ -34,10 +33,33 @@ const Chart = () => {
            }}
             />
         ): null
+    );
+    console.log(confirmed, recovered, deaths);
+    const barChart =(
+        confirmed ?(
+            <Bar
+            data={{
+                labels:['Infectados', ' Recuperados', 'Mortes'],
+                datasets:[{
+                    label:'Pessoas',
+                    backgroundColor:[
+                        'rgba(0, 0, 225, 0.5)',
+                        'rgba(0, 225, 0, 0.5)',
+                        'rgba(225, 0, 0, 0.5)',
+                    ],
+                    data:[confirmed.value, recovered.value, deaths.value]
+                }]
+            }}
+            options={{
+                legend:{display:false},
+                title:{display:true, text:`Estado atual em ${country}`}
+            }}
+            /> 
+        ):null
     )
     return (
         <div className={style.container}>
-            {lineChart}
+            {country ? barChart : lineChart}
         </div>
     )
 }

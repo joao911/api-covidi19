@@ -6,6 +6,7 @@ import styles from './Card.module.css';
 
 
 
+
 export const Cards = ({data:{recovered, deaths, confirmed, lastUpdate}}) => {
     
     if(!confirmed){
@@ -14,6 +15,7 @@ export const Cards = ({data:{recovered, deaths, confirmed, lastUpdate}}) => {
     console.log(lastUpdate)
     return (
         <div className={styles.container}>
+            
             <Grid container spacing={3} justify="center">
                 <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.infected)}>
                     <CardContent>
@@ -51,7 +53,7 @@ export const Cards = ({data:{recovered, deaths, confirmed, lastUpdate}}) => {
                 </Grid>
                 <Grid item component={Card}  xs={12} md={3} className={cx(styles.card, styles.deaths)}>
                     <CardContent>
-                        <Typography color="textSecondary">Infectados</Typography>
+                        <Typography color="textSecondary">Mortes</Typography>
                         <Typography variant="h5">
                         <CoundUp
                         start={0}
